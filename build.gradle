@@ -10,4 +10,5 @@ repositories {
 
 dependencies {
 	groovy 'org.codehaus.groovy:groovy-all:2.1.5'
+	compile fileTree(dir: 'lib', include: '*.jar')
 }
