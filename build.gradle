@@ -1,0 +1,13 @@
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+apply plugin:'application'
+
+mainClassName = "nu.nsson.go.Main"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	groovy 'org.codehaus.groovy:groovy-all:2.1.5'
+}
