@@ -3,6 +3,8 @@ package nu.nsson.go.camera
 import org.opencv.highgui.VideoCapture
 import org.opencv.core.Mat
 
+import nu.nsson.go.util.PhysicalGoInterfaceProperties
+
 class WebCamWrapper {
 	
 	private static WebCamWrapper instance = null
@@ -16,7 +18,8 @@ class WebCamWrapper {
 	private VideoCapture captureDevice = null
 	
 	private WebCamWrapper() {
-		captureDevice = new VideoCapture(0)
+		def config = PhysicalGoInterfaceProperties.getInstance()
+		captureDevice = new VideoCapture(config.getWebCamDeviceId(0))
 		
 		def initialized = false
 		3.times {

@@ -10,8 +10,6 @@ LibLoader.load()
 // Initialize WebCam
 def cam = WebCamWrapper.getInstance()
 
-def img = cam.captureImage()
-
-println img.toString()
-
-def guiMain = new GUIMain()
+// Initialize GUI
+def guiMain = new GUIMain(cam)
+guiMain.initialize()
