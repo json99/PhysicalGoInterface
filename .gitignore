@@ -2,6 +2,12 @@ build/
 
 .gradle/
 
+.groovy
+
 .DS_Store
 
 .settings/
+
+.classpath
+.project
+/bin

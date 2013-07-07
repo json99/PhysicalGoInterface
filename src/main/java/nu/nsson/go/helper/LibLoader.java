@@ -1,7 +1,13 @@
-import org.opencv.core.Core;
-import java.io.*;
-public class LibLoader {
+package nu.nsson.go.helper;
+
+ import java.io.*;
+
+ public class LibLoader {
   public static void load() {
-    System.load(new File("/opt/local/share/OpenCV/java/libopencv_java245.dylib").getAbsolutePath());
+    LibLoader.load("/opt/local/share/OpenCV/java/libopencv_java245.dylib");
   }
+  
+  public static void load(String path) {
+	    System.load(new File(path).getAbsolutePath());
+	  }
 }
