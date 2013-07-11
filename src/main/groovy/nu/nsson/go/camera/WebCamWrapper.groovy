@@ -3,9 +3,14 @@ package nu.nsson.go.camera
 import org.opencv.highgui.VideoCapture
 import org.opencv.core.Mat
 
+import nu.nsson.go.WebCamWrapperUpdate
 import nu.nsson.go.util.PhysicalGoInterfaceProperties
+import nu.nsson.go.util.OpenCVConverters
 
-class WebCamWrapper {
+import java.util.Timer
+import java.util.TimerTask
+
+class WebCamWrapper extends TimerTask {
 	
 	private static WebCamWrapper instance = null
 	
@@ -16,6 +21,10 @@ class WebCamWrapper {
 	}
 	
 	private VideoCapture captureDevice = null
+	private WebCamWrapperUpdate delegate = null
+	def updateThread
+	def stopThread = false
+	private Timer timer
 	
 	private WebCamWrapper() {
 		def config = PhysicalGoInterfaceProperties.getInstance()
@@ -36,12 +45,30 @@ class WebCamWrapper {
 		}
 	}
 	
-	public Mat captureImage() {
+	public void setDelegate(WebCamWrapperUpdate d) {
+		delegate = d
+	}
+	
+	def start() {
+		timer = new Timer()
+        timer.schedule(this, 0, 333)
+	}
+	
+	def stop() {
+		timer.cancel()
+	}
+
+	@Override
+	public void run() {
 		if(captureDevice && captureDevice.isOpened()) {
 			def img = new Mat()
 			captureDevice.read(img)
 			
-			return img
+			def buffImg = OpenCVConverters.matToBufferedImage(img)
+				
+			if(delegate) {
+				delegate.newImage(buffImg)
+			}
 		}
 	}
 

@@ -9,6 +9,8 @@ class PhysicalGoInterfaceProperties {
 		if(instance == null) {
 			instance = new PhysicalGoInterfaceProperties()
 		}
+		
+		return instance
 	}
 	
 	private Properties configuration;
@@ -37,6 +39,10 @@ class PhysicalGoInterfaceProperties {
 	
 	public int getWebCamDeviceId(int defaultValue) {
 		return getValueInt("WebCamDeviceId", defaultValue)
+	}
+	
+	public String getGnuGoPath(String defaultValue) {
+		return getValue("GnuGoPath", defaultValue)
 	}
 		
 } 
