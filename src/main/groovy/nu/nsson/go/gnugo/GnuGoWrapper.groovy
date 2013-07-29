@@ -30,4 +30,12 @@ class GnuGoWrapper {
 	def showBoard() {
 		gnuGoClient.send("showboard")
 	}
+	
+	def generateBlackMove() {
+		gnuGoClient.send("genmove_black")
+	}
+	
+	def generateWhiteMove() {
+		gnuGoClient.send("genmove_white")
+	}
 }

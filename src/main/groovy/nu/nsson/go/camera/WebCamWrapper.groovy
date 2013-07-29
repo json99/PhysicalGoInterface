@@ -1,14 +1,22 @@
 package nu.nsson.go.camera
 
 import org.opencv.highgui.VideoCapture
+import org.opencv.core.CvType;
 import org.opencv.core.Mat
+import org.opencv.core.Core
+import org.opencv.core.Point
+import org.opencv.core.Rect
+import org.opencv.core.Scalar
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc
 
-import nu.nsson.go.WebCamWrapperUpdate
 import nu.nsson.go.util.PhysicalGoInterfaceProperties
 import nu.nsson.go.util.OpenCVConverters
 
 import java.util.Timer
 import java.util.TimerTask
+
+import javax.swing.text.MaskFormatter.UpperCaseCharacter;
 
 class WebCamWrapper extends TimerTask {
 	
@@ -51,7 +59,7 @@ class WebCamWrapper extends TimerTask {
 	
 	def start() {
 		timer = new Timer()
-        timer.schedule(this, 0, 333)
+        timer.schedule(this, 0, 1000)
 	}
 	
 	def stop() {
@@ -64,12 +72,11 @@ class WebCamWrapper extends TimerTask {
 			def img = new Mat()
 			captureDevice.read(img)
 			
-			def buffImg = OpenCVConverters.matToBufferedImage(img)
-				
+			Core.flip(img, img, -1)
+			
 			if(delegate) {
-				delegate.newImage(buffImg)
+				delegate.newImage(img)
 			}
 		}
 	}
-
 }
